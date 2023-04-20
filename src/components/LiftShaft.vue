@@ -1,6 +1,6 @@
 <script></script>
 
-<template><div>f</div></template>
+<template><div>dfdf</div></template>
 
 <style lang="scss" scoped>
 .shaft {

@@ -1,8 +1,16 @@
-<script setup>
+<script>
+import LiftShaft from './components/LiftShaft.vue';
 
+export default {
+  components: { LiftShaft },
+};
 </script>
 
-<template><div></div></template>
+<template>
+  <div class="container">
+    <lift-shaft></lift-shaft>
+  </div>
+</template>
 
 <style scoped lang="scss">
 .container {
