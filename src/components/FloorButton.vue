@@ -23,7 +23,7 @@ export default {
   </div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @keyframes blink {
   50% {
     border: 2px solid red;

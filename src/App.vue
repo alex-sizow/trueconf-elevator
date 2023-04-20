@@ -1,16 +1,33 @@
 <script>
+import { mapMutations } from 'vuex';
+
 import FloorButton from './components/FloorButton.vue';
 import LiftShaft from './components/LiftShaft.vue';
 
 export default {
   name: 'App',
+
   components: { LiftShaft, FloorButton },
+
+  methods: {
+    ...mapMutations(['addFloors', 'addShafts']),
+
+    addFloor() {
+      this.addFloors();
+    },
+    addShaft() {
+      this.addShafts();
+    },
+  },
 };
 </script>
 
 <template>
   <div class="container">
-    <lift-shaft></lift-shaft>
+    <lift-shaft
+      v-for="(shaft, index) in this.$store.state.shafts"
+      :key="index"
+    ></lift-shaft>
     <div class="buttons">
       <div class="buttons">
         <floor-button
@@ -20,6 +37,8 @@ export default {
         ></floor-button>
       </div>
     </div>
+    <button @click="addFloor">Add floor</button>
+    <button @click="addShaft">Add shaft</button>
   </div>
 </template>
 

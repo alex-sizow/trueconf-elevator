@@ -8,5 +8,12 @@ export default createStore({
     };
   },
   getters: {},
-  mutations: {},
+  mutations: {
+    addFloors(state) {
+      state.floors += 1;
+    },
+    addShafts(state) {
+      state.shafts += 1;
+    },
+  },
 });
