@@ -4,7 +4,8 @@ export default createStore({
   state() {
     return {
       floors: 6,
-      shafts: 3,
+      shafts: [1, 1, 1],
+      calls: [],
     };
   },
   getters: {},
@@ -13,7 +14,10 @@ export default createStore({
       state.floors += 1;
     },
     addShafts(state) {
-      state.shafts += 1;
+      state.shafts.push(1);
+    },
+    addCall(state, payload) {
+      state.calls.push(payload);
     },
   },
 });

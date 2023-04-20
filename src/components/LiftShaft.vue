@@ -10,7 +10,7 @@ export default {
 </script>
 
 <template>
-  <div class="shaft"><lift-item></lift-item></div>
+  <div class="shaft" ><lift-item></lift-item></div>
 </template>
 
 <style lang="scss" scoped>

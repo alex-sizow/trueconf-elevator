@@ -1,4 +1,6 @@
 <script>
+import { mapMutations } from 'vuex';
+
 export default {
   name: 'FloorButton',
 
@@ -10,7 +12,12 @@ export default {
     floor: Number,
   },
   methods: {
-    call() {},
+    ...mapMutations(['addCall']),
+
+    call() {
+      this.addCall(this.floor);
+      console.log(this.$store.state.calls);
+    },
   },
 };
 </script>
