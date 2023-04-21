@@ -16,7 +16,6 @@ export default {
 
     call() {
       this.addCall(this.floor);
-      console.log(this.$store.state.calls);
     },
   },
 };

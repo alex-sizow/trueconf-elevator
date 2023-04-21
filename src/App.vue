@@ -7,16 +7,34 @@ import LiftShaft from './components/LiftShaft.vue';
 export default {
   name: 'App',
 
+  data() {
+    return {
+      calls: this.$store.state.calls,
+    };
+  },
+
+  computed: {},
+
   components: { LiftShaft, FloorButton },
 
   methods: {
-    ...mapMutations(['addFloors', 'addShafts']),
+    ...mapMutations(['addFloors', 'addShafts', 'selectionElevator']),
 
     addFloor() {
       this.addFloors();
+      this.selectionElevator();
     },
     addShaft() {
       this.addShafts();
+    },
+  },
+
+  watch: {
+    calls: {
+      handler(newVal) {
+        this.selectionElevator();
+      },
+      deep: true,
     },
   },
 };
