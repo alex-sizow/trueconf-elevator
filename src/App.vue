@@ -49,7 +49,8 @@ export default {
     <lift-shaft
       v-for="(shaft, index) in this.$store.state.shafts"
       :key="index"
-      :floor="shaft"
+      :number="index"
+      :floor="shaft.floor"
     ></lift-shaft>
     <div class="buttons">
       <div class="buttons">
