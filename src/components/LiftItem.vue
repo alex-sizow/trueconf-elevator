@@ -2,9 +2,8 @@
 export default { name: 'LiftItem' };
 </script>
 
-
 <template>
-  <div class="lift"></div>
+  <div class="lift"><slot></slot></div>
 </template>
 
 <style lang="scss" scoped>

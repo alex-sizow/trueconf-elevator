@@ -18,11 +18,15 @@ export default {
   components: { LiftShaft, FloorButton },
 
   methods: {
-    ...mapMutations(['addFloors', 'addShafts', 'selectionElevator']),
+    ...mapMutations([
+      'addFloors',
+      'addShafts',
+      'selectionElevator',
+      'deleteCall',
+    ]),
 
     addFloor() {
       this.addFloors();
-      this.selectionElevator();
     },
     addShaft() {
       this.addShafts();
@@ -31,7 +35,7 @@ export default {
 
   watch: {
     calls: {
-      handler(newVal) {
+      handler(oldVal, newVal, d) {
         this.selectionElevator();
       },
       deep: true,

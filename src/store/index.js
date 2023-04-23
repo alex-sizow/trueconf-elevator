@@ -5,7 +5,7 @@ export default createStore({
     return {
       floors: 6,
       shafts: [1, 1, 1],
-      calls: [5],
+      calls: [],
     };
   },
   getters: {},
@@ -18,11 +18,12 @@ export default createStore({
     },
     addCall(state, payload) {
       if (!state.calls.includes(payload)) {
-        state.calls.unshift(payload);
+        state.calls.push(payload);
       }
     },
+
     selectionElevator(state) {
-      const newCall = state.calls[0];
+      const newCall = state.calls[state.calls.length - 1];
 
       const result = state.shafts.reduce((prev, curr) => {
         return Math.abs(curr - newCall) < Math.abs(prev - newCall)
@@ -31,10 +32,9 @@ export default createStore({
       });
 
       const currentIndex = (element) => element === result;
-
+      //slice
       const index = state.shafts.findIndex(currentIndex);
       state.shafts[index] = newCall;
-
     },
   },
 });

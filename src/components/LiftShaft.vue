@@ -1,16 +1,41 @@
 <script>
 import LiftItem from './LiftItem.vue';
 export default {
-  components: { LiftItem },
   name: 'LiftShaft',
+
+  components: { LiftItem },
+
+  data() {
+    return {
+      animationTime: 0,
+    };
+  },
+
   props: {
     floor: Number,
+  },
+
+  watch: {
+    floor: {
+      handler(oldVal, newVal) {
+        this.animationTime = Math.abs(oldVal - newVal);
+      },
+      deep: true,
+    },
   },
 };
 </script>
 
 <template>
-  <div class="shaft" ><lift-item></lift-item></div>
+  <div class="shaft">
+    <lift-item
+      :style="{
+        bottom: `${150 * floor - 150}px`,
+        transition: `${animationTime}.0s`,
+      }"
+      ><div></div
+    ></lift-item>
+  </div>
 </template>
 
 <style lang="scss" scoped>
