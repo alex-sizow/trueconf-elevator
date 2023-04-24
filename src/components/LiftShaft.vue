@@ -20,7 +20,6 @@ export default {
     floor: {
       handler(oldVal, newVal) {
         const indexFloor = this.number;
-        this.$store.state.shafts[indexFloor].busy = true;
 
         this.animationTime = Math.abs(oldVal - newVal);
       },

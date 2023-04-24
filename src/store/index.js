@@ -37,16 +37,25 @@ export default createStore({
       const newCall = state.calls[state.calls.length - 1];
 
       const result = state.shafts.reduce((prev, curr) => {
-        return Math.abs(curr.floor - newCall) < Math.abs(prev.floor - newCall)
-          ? curr
-          : prev;
+        if (
+          curr.busy === true ||
+          Math.abs(curr.floor - newCall) < Math.abs(prev.floor - newCall)
+        ) {
+          return curr;
+        } else {
+          console.log('prev', prev);
+          return prev;
+        }
       });
+      console.log('result', result);
       const currentIndex = (element) => element === result;
 
       //slice
       const index = state.shafts.findIndex(currentIndex);
-      console.log('index', index);
-      state.shafts[index].floor = newCall;
+      state.shafts[index] = {
+        floor: newCall,
+        busy: true,
+      };
     },
   },
 });
