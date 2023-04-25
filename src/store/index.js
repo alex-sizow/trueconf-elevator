@@ -60,5 +60,11 @@ export default createStore({
       state.shafts[index].busy = false;
     },
   },
-  actions: {},
+  actions: {
+    asyncReleaseElevator({ commit }, payload) {
+      setTimeout(() => {
+        commit('releaseElevator', payload[0]);
+      }, payload[1] * 1000 + 3000);
+    },
+  },
 });

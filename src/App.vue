@@ -47,12 +47,6 @@ export default {
       },
       deep: true,
     },
-    '$store.state.shafts': {
-      handler(oldVal, newVal) {
-        console.log('опачки', oldVal, newVal);
-      },
-      deep: true,
-    },
   },
 };
 </script>

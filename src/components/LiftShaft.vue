@@ -1,6 +1,4 @@
 <script>
-import { mapMutations } from 'vuex';
-
 import LiftItem from './LiftItem.vue';
 export default {
   name: 'LiftShaft',
@@ -18,16 +16,14 @@ export default {
     number: Number,
   },
 
-  methods: {
-    ...mapMutations(['releaseElevator']),
-  },
+  methods: {},
 
   watch: {
     floor: {
       handler(oldVal, newVal) {
         const difference = Math.abs(oldVal - newVal);
         this.animationTime = difference;
-        this.releaseElevator(this.number);
+        this.$store.dispatch('asyncReleaseElevator', [this.number, difference]);
       },
       deep: true,
     },
