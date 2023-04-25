@@ -10,10 +10,17 @@ export default {
   data() {
     return {
       calls: this.$store.state.calls,
+      shafts: this.$store.state.shafts,
     };
   },
 
-  computed: {},
+  computed: {
+    count() {
+      return this.$store.state.shafts;
+      // Or return basket.getters.fruitsCount
+      // (depends on your design decisions).
+    },
+  },
 
   components: { LiftShaft, FloorButton },
 
@@ -35,8 +42,14 @@ export default {
 
   watch: {
     calls: {
-      handler(oldVal, newVal, d) {
+      handler(oldVal, newVal) {
         this.selectionElevator();
+      },
+      deep: true,
+    },
+    '$store.state.shafts': {
+      handler(oldVal, newVal) {
+        console.log('опачки', oldVal, newVal);
       },
       deep: true,
     },

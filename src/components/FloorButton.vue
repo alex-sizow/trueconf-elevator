@@ -5,7 +5,9 @@ export default {
   name: 'FloorButton',
 
   data() {
-    return { callActive: false };
+    return {
+      callActive: false,
+    };
   },
 
   props: {

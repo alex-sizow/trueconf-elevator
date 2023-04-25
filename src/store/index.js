@@ -26,9 +26,11 @@ export default createStore({
     addFloors(state) {
       state.floors += 1;
     },
+
     addShafts(state) {
       state.shafts.push(1);
     },
+
     addCall(state, payload) {
       state.calls.push(payload);
     },
@@ -36,18 +38,14 @@ export default createStore({
     selectionElevator(state) {
       const newCall = state.calls[state.calls.length - 1];
 
-      const result = state.shafts.reduce((prev, curr) => {
-        if (
-          curr.busy === true ||
-          Math.abs(curr.floor - newCall) < Math.abs(prev.floor - newCall)
-        ) {
-          return curr;
-        } else {
-          console.log('prev', prev);
-          return prev;
-        }
-      });
-      console.log('result', result);
+      const result = state.shafts.find(
+        (num) =>
+          (Math.abs(num.floor - newCall) ===
+            Math.min(...state.shafts.map((n) => Math.abs(n.floor - newCall))) &&
+            num.busy === false) ||
+          num.busy === false
+      );
+
       const currentIndex = (element) => element === result;
 
       //slice
@@ -57,5 +55,10 @@ export default createStore({
         busy: true,
       };
     },
+
+    releaseElevator(state, index) {
+      state.shafts[index].busy = false;
+    },
   },
+  actions: {},
 });
