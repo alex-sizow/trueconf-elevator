@@ -25,12 +25,7 @@ export default {
   components: { LiftShaft, FloorButton },
 
   methods: {
-    ...mapMutations([
-      'addFloors',
-      'addShafts',
-      'selectionElevator',
-      'deleteCall',
-    ]),
+    ...mapMutations(['addFloors', 'addShafts', 'deleteCall']),
 
     addFloor() {
       this.addFloors();
@@ -42,8 +37,18 @@ export default {
 
   watch: {
     calls: {
-      handler(oldVal, newVal) {
-        this.selectionElevator();
+      handler() {
+        const foundShaft = this.$store.state.shafts.find(
+          (shaft) => shaft.busy === false
+        );
+
+        this.$store.dispatch('asyncSelectionElevator', 0);
+      },
+      deep: true,
+    },
+    shafts: {
+      handler() {
+        const foundShaft = this.shafts.find((shaft) => shaft.busy === false);
       },
       deep: true,
     },

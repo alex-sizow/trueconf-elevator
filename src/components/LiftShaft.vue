@@ -1,4 +1,6 @@
 <script>
+import { mapActions } from 'vuex';
+
 import LiftItem from './LiftItem.vue';
 export default {
   name: 'LiftShaft',
@@ -7,7 +9,8 @@ export default {
 
   data() {
     return {
-      animationTime: 0,
+      time: 0,
+      calls: this.$store.state.shafts[this.number].calls,
     };
   },
 
@@ -16,16 +19,51 @@ export default {
     number: Number,
   },
 
-  methods: {},
+  computed: {
+    count() {
+      return this.$store.state.shafts[this.number].busy;
+      // Or return basket.getters.fruitsCount
+      // (depends on your design decisions).
+    },
+  },
+
+  methods: { ...mapActions(['asyncDeleteCall']) },
 
   watch: {
-    floor: {
-      handler(oldVal, newVal) {
-        const difference = Math.abs(oldVal - newVal);
-        this.animationTime = difference;
-        this.$store.dispatch('asyncReleaseElevator', [this.number, difference]);
+    calls: {
+      handler(newVal, oldVal) {
+        const currentCall = this.calls[this.calls.length - 1];
+        const currentFloor = this.$store.state.shafts[this.number].floor;
+        const busy = this.$store.state.shafts[this.number].busy;
+        if (!busy || currentCall === currentFloor) {
+          this.$store.state.shafts[this.number].floor = currentCall;
+        }
+
+        this.$store.state.shafts[this.number].busy = true;
       },
       deep: true,
+    },
+    floor: {
+      handler(newVal, oldVal) {
+        const difference = Math.abs(oldVal - newVal);
+        this.time = difference;
+
+        this.$store.dispatch('asyncReleaseElevator', [this.number, difference]);
+      },
+    },
+    count: {
+      handler(value) {
+        const currentCall = this.calls[0];
+        if (value === true) {
+          this.$store.state.shafts[this.number].calls.shift();
+        } else if (this.calls.length === 0) {
+        } else if (value === false && this.calls.length > 0) {
+          this.$store.state.shafts[this.number].floor = currentCall;
+          this.$store.state.shafts[this.number].calls.shift();
+        } else if (value === false) {
+          this.$store.state.shafts[this.number].floor = currentCall;
+        }
+      },
     },
   },
 };
@@ -36,7 +74,7 @@ export default {
     <lift-item
       :style="{
         bottom: `${150 * floor - 150}px`,
-        transition: `${animationTime}.0s`,
+        transition: `${time}.0s`,
       }"
       ><div></div
     ></lift-item>
